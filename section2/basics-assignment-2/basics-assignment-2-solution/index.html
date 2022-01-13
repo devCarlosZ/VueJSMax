@@ -28,7 +28,11 @@
       <!-- 3) Repeat 2) but only output the entered value if the ENTER key was pressed -->
       <input
         type="text"
+<<<<<<< HEAD
         v-on:keydown="saveInput"
+=======
+        //v-on:keydown="saveInput"
+>>>>>>> cff15cb15ceda61607f7eb74548697026e6dbbf7
         v-on:keyup.enter="confirmInput"
       />
       <p>{{ confirmedInput }}</p>
