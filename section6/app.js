@@ -24,7 +24,7 @@ app.component('friend-contact', {
         return {
             detailsAreVisible: false,
             friend: {
-                id: 'manuel', name: 'Manuel Lorenz', phone: '01234 5678 991', email: 'manuelfriend@gmail.com'
+                id: 'manuel', name: 'Manuel Lorenzo', phone: '01234 5678 991', email: 'manuelfriend@gmail.com'
             }
         };
     },
