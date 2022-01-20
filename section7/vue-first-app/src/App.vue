@@ -1,18 +1,18 @@
 <template>
   <section>
-    <header><h1>My Friends</h1></header>
+    <header><h1>Demo Friends List</h1></header>
+    <new-friend @add-contact="addContact"></new-friend>
     <ul>
       <friend-contact
-        name="Manuel Lorenz"
-        phone-number="213 486 6000"
-        email-address="LorenzM@gmail.com"
-        is-favorite="1"
-      ></friend-contact>
-      <friend-contact
-        name="Julie Jones"
-        phone-number="213 486 5000"
-        email-address="JulieJ@gmail.com"
-        is-favorite="0"
+        v-for="friend in friends"
+        :key="friend.id"
+        :id="friend.id"
+        :name="friend.name"
+        :phone-number="friend.phone"
+        :email-address="friend.email"
+        :is-favorite="friend.isFavorite"
+        @toggle-favorite="toggleFavoriteStatus"
+        @delete="deleteContact"
       ></friend-contact>
     </ul>
   </section>
@@ -28,15 +28,38 @@ export default {
           name: "Noway Jose",
           phone: "213 485 1212",
           email: "noway@email.com",
+          isFavorite: true,
         },
         {
           id: "siguey",
           name: "Siguey Magey",
           phone: "213 853 1212",
           email: "siguey@email.com",
+          isFavorite: false,
         },
       ],
     };
+  },
+  methods: {
+    toggleFavoriteStatus(friendId) {
+      const identifiedFriend = this.friends.find(
+        (friend) => friend.id === friendId
+      );
+      identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
+    },
+    addContact(name, phone, email) {
+      const newFriendContact = {
+        id: new Date().toISOString(),
+        name: name,
+        phone: phone,
+        email: email,
+        isFavorite: false
+      };
+      this.friends.push(newFriendContact);
+    },
+    deleteContact(friendId){
+      this.friends = this.friends.filter((friend) => friend.id != friendId);
+    },
   },
 };
 </script>
@@ -71,7 +94,8 @@ header {
   list-style: none;
 }
 
-#app li {
+#app li,
+#app form {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin: 1rem auto;
   border-radius: 10px;
@@ -103,5 +127,19 @@ header {
   background-color: #345567;
   border-color: #345567;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
+
+#app input {
+  font: inherit;
+  padding: 0.15rem;
+}
+#app label {
+  font-weight: bold;
+  margin-right: 1rem;
+  width: 7rem;
+  display: inline-block;
+}
+#app form div {
+  margin: 1rem 0;
 }
 </style>
